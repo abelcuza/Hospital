@@ -1,3 +1,49 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .models import Medico, Paciente, Medicamento, Consulta, MedicamentoInventario
+from .serializer import MedicoSerializer, PacienteSerializer, MedicamentoSerializer, ConsultaReadSerializer, \
+    ConsultaWriteSerializer, MedicamentoReadInventarioSerializer, MedicamentoWriteInventarioSerializer
+
+
+def assign_serializer(obj, list_serializer, read_serializer, write_serializer):
+    p = {
+        'retrieve': read_serializer,
+        'update': write_serializer,
+        'create': write_serializer,
+        'list': list_serializer,
+        'partial_update': write_serializer,
+    }
+    if obj.action in p:
+        return p[obj.action]
+    return read_serializer
+
+
+class MedicoViewSet(viewsets.ModelViewSet):
+    queryset = Medico.objects.all()
+    serializer_class = MedicoSerializer
+
+
+class PacienteViewSet(viewsets.ModelViewSet):
+    queryset = Paciente.objects.all()
+    serializer_class = PacienteSerializer
+
+
+class MedicamentoViewSet(viewsets.ModelViewSet):
+    queryset = Medicamento.objects.all()
+    serializer_class = MedicamentoSerializer
+
+
+class ConsultaViewSet(viewsets.ModelViewSet):
+    queryset = Consulta.objects.all()
+
+    def get_serializer_class(self):
+        return assign_serializer(self, ConsultaReadSerializer, ConsultaReadSerializer,
+                                 ConsultaWriteSerializer)
+
+
+class MedicamentoInventarioViewSet(viewsets.ModelViewSet):
+    queryset = MedicamentoInventario.objects.all()
+
+    def get_serializer_class(self):
+        return assign_serializer(self, MedicamentoReadInventarioSerializer, MedicamentoReadInventarioSerializer,
+                                 MedicamentoWriteInventarioSerializer)
