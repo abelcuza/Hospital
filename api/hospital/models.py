@@ -51,7 +51,7 @@ class Consulta(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.RESTRICT)
     paciente = models.ForeignKey(Paciente, on_delete=models.RESTRICT)
     fecha = models.DateTimeField()
-    medicamentos = models.ForeignKey(Medicamento, on_delete=models.DO_NOTHING)
+    medicamentos = models.ManyToManyField(Medicamento)
     diagnostico = models.TextField(blank=True)
 
 
