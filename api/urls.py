@@ -29,4 +29,5 @@ router.register(r'medicamentos_inventario', hospital_views.MedicamentoInventario
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
 ]
