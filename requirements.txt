@@ -3,3 +3,5 @@ djangorestframework
 markdown
 django-filter
 pillow
+django-cors-headers
+django-auto-prefetching

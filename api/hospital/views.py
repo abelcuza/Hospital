@@ -1,3 +1,4 @@
+from django_auto_prefetching import AutoPrefetchViewSetMixin
 from rest_framework import viewsets
 
 from .models import Medico, Paciente, Medicamento, Consulta, MedicamentoInventario
@@ -18,22 +19,22 @@ def assign_serializer(obj, list_serializer, read_serializer, write_serializer):
     return read_serializer
 
 
-class MedicoViewSet(viewsets.ModelViewSet):
+class MedicoViewSet(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     queryset = Medico.objects.all()
     serializer_class = MedicoSerializer
 
 
-class PacienteViewSet(viewsets.ModelViewSet):
+class PacienteViewSet(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     queryset = Paciente.objects.all()
     serializer_class = PacienteSerializer
 
 
-class MedicamentoViewSet(viewsets.ModelViewSet):
+class MedicamentoViewSet(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     queryset = Medicamento.objects.all()
     serializer_class = MedicamentoSerializer
 
 
-class ConsultaViewSet(viewsets.ModelViewSet):
+class ConsultaViewSet(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     queryset = Consulta.objects.all()
 
     def get_serializer_class(self):
@@ -41,7 +42,7 @@ class ConsultaViewSet(viewsets.ModelViewSet):
                                  ConsultaWriteSerializer)
 
 
-class MedicamentoInventarioViewSet(viewsets.ModelViewSet):
+class MedicamentoInventarioViewSet(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     queryset = MedicamentoInventario.objects.all()
 
     def get_serializer_class(self):
