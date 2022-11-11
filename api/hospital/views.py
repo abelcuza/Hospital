@@ -22,6 +22,8 @@ def assign_serializer(obj, list_serializer, read_serializer, write_serializer):
 class MedicoViewSet(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
     queryset = Medico.objects.all()
     serializer_class = MedicoSerializer
+    filterset_fields = ['nombre', 'apellidos']
+    search_fields = ['nombre', 'apellidos']
 
 
 class PacienteViewSet(AutoPrefetchViewSetMixin, viewsets.ModelViewSet):
