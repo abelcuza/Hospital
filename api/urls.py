@@ -25,7 +25,7 @@ router.register(r'medicos', hospital_views.MedicoViewSet, basename='medicos')
 router.register(r'pacientes', hospital_views.PacienteViewSet, basename='pacientes')
 router.register(r'medicamentos', hospital_views.MedicamentoViewSet, basename='medicamentos')
 router.register(r'consultas', hospital_views.ConsultaViewSet, basename='consultas')
-router.register(r'medicamentos_inventario', hospital_views.MedicamentoInventarioViewSet, basename='medicamentos_inventario')
+router.register(r'inventario', hospital_views.InventarioViewSet, basename='inventario')
 
 urlpatterns = [
     path('', include(router.urls)),
